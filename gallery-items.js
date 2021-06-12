@@ -74,12 +74,16 @@ const closeBtn = document.querySelector(`[data-action="close-lightbox"]`);
 
 const imgMarkup = createGallery(images);
 
+const img = document.querySelector(".gallery__image");
+const arrayImages = [];
+
 galleryBox.insertAdjacentHTML("beforeend", imgMarkup);
 
 galleryBox.addEventListener("click", isOpenModal);
 closeBtn.addEventListener("click", isCloseModal);
 
 
+// gallery
 
 function createGallery(images) {
   return images.map(({ preview, original, description }) => {
@@ -92,6 +96,8 @@ function createGallery(images) {
     `
   }).join("");
 }
+
+// open
 
 function isOpenModal(e) {
   const galleryEl = e.target;
@@ -108,6 +114,8 @@ function isOpenModal(e) {
   closeBtn.addEventListener("click", isCloseModal);
   window.addEventListener("keydown", closeEsc);
 }
+
+// close
 
 function isCloseModal(e) {
   lightBox.classList.remove("is-open")
@@ -129,3 +137,6 @@ function closeEsc(e) {
     isCloseModal(e);
   }  
 }
+
+// left-right 
+
