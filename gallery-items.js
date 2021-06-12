@@ -74,9 +74,6 @@ const closeBtn = document.querySelector(`[data-action="close-lightbox"]`);
 
 const imgMarkup = createGallery(images);
 
-const img = document.querySelector(".gallery__image");
-const arrayImages = [];
-
 galleryBox.insertAdjacentHTML("beforeend", imgMarkup);
 
 galleryBox.addEventListener("click", isOpenModal);
@@ -113,6 +110,7 @@ function isOpenModal(e) {
   overlayBox.addEventListener("click", closeModalOverlay)
   closeBtn.addEventListener("click", isCloseModal);
   window.addEventListener("keydown", closeEsc);
+  window.addEventListener("keydown", scrolling);
 }
 
 // close
@@ -138,5 +136,27 @@ function closeEsc(e) {
   }  
 }
 
-// left-right 
+//left-right 
 
+const img = document.querySelectorAll(".gallery__image");
+const arrayImages = [];
+
+img.forEach((el) => {
+  arrayImages.push(el.getAttribute("data-source"));
+});
+function scrolling(evt) {
+  let newIndex;
+  const currentId = arrayImages.indexOf(lightBoxImg.src);
+  if (evt.key === "ArrowLeft") {
+    newIndex = currentId - 1;
+    if (newIndex == -1) {
+      newIndex = arrayImages.length - 1;
+    }
+  } else if (evt.key === "ArrowRight") {
+    newIndex = currentId + 1;
+    if (newIndex === arrayImages.length) {
+      newIndex = 0;
+    }
+  }
+  lightBoxImg.src = arrayImages[newIndex];
+}
