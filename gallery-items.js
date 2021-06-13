@@ -74,6 +74,11 @@ const closeBtn = document.querySelector(`[data-action="close-lightbox"]`);
 
 const imgMarkup = createGallery(images);
 
+const boxImg = (src, alt) => {
+  lightBoxImg.src = src;
+  lightBoxImg.alt = alt;
+}
+
 galleryBox.insertAdjacentHTML("beforeend", imgMarkup);
 
 galleryBox.addEventListener("click", isOpenModal);
@@ -103,8 +108,10 @@ function isOpenModal(e) {
     return;
   }
 
-  lightBoxImg.src = galleryEl.dataset.source;
-  lightBoxImg.alt = galleryEl.alt;
+  boxImg(galleryEl.dataset.source, galleryEl.alt);
+  // lightBoxImg.src = galleryEl.dataset.source;
+  // lightBoxImg.alt = galleryEl.alt;
+ 
   lightBox.classList.add("is-open");
 
   overlayBox.addEventListener("click", closeModalOverlay)
@@ -117,8 +124,9 @@ function isOpenModal(e) {
 
 function isCloseModal(e) {
   lightBox.classList.remove("is-open")
-  lightBoxImg.src = "";
-  lightBoxImg.alt = "";
+  boxImg("","");
+  // lightBoxImg.src = "";
+  // lightBoxImg.alt = "";
   closeBtn.removeEventListener("click", isCloseModal);
   overlayBox.removeEventListener("click", closeModalOverlay)
   window.removeEventListener("keydown", closeEsc);
